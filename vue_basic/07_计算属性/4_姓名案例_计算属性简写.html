@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例_计算属性简写</title>
+    <!-- 通过script标签引入vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        姓：<input type="text" v-model="xing"><br>
+        名：<input type="text" v-model="ming"><br>
+        全名：<span>{{fullName}}</span><br>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                xing: "张",
+                ming: "三"
+            },
+            computed: {
+                //完整写法
+                /* fullName: {
+                    get() {
+                        console.log('fullName get方法被调用了~~~')
+                        //这里的this指的就是vm本身
+                        return this.xing + '-' + this.ming
+                    },
+                    set(value) {
+                        console.log('fullName set方法被调用了```')
+                        const arr = value.split('-')
+                        this.xing = arr[0]
+                        this.ming = arr[1]
+                    }
+                } */
+
+                //简写：只支持读取，不支持修改的情况
+                fullName() {
+                    //相当于完整写法里的getter
+                    console.log('fullName get方法被调用了~~~')
+                    //这里的this指的就是vm本身
+                    return this.xing + '-' + this.ming
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

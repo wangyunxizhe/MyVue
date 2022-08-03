@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例_计算属性实现</title>
+    <!-- 通过script标签引入vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!--
+        计算属性 VS methods 实现的优势：内部有缓存机制（可复用）效率更高，调试更方便
+    -->
+    <div id="root">
+        姓：<input type="text" v-model="xing"><br>
+        名：<input type="text" v-model="ming"><br>
+        全名：<span>{{fullName}}</span><br>
+        <!-- 通过控制台可以观察到fullName的getter只被调用了一次，因为vue帮忙做了计算属性（computed）的缓存
+            （当fullName依赖的变量值发生变化时，getter会被重新调用） -->
+        全名：<span>{{fullName}}</span><br>
+        全名：<span>{{fullName}}</span><br>
+        全名：<span>{{fullName}}</span><br>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                xing: "张",
+                ming: "三"
+            },
+            computed: {
+                fullName: {
+                    get() {
+                        console.log('fullName get方法被调用了~~~')
+                        //这里的this指的就是vm本身
+                        return this.xing + '-' + this.ming
+                    },
+                    set(value) {
+                        console.log('fullName set方法被调用了```')
+                        const arr = value.split('-')
+                        this.xing = arr[0]
+                        this.ming = arr[1]
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
