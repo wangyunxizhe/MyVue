@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件修饰符</title>
+    <!-- 通过script标签引入vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!--
+        Vue常用按键别名：
+            回车 => enter
+            删除 => delete （退格和删除键）
+            退出 => esc
+            空格 => space
+            换行 => tab （特殊，必须配合keydown事件使用）
+            上 => up
+            下 => down
+            左 => left
+            右 => right
+    -->
+    <div id="root">
+        写法1：<input type="text" placeholder="按下回车提示输入" @keyup="showInfo1"><br>
+        <!-- 写法2：vue给常用的按键都设置了别名，如回车。当只有按下回车时，才触发function -->
+        写法2：<input type="text" placeholder="按下回车提示输入" @keyup.enter="showInfo2"><br>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: "#root",
+            methods: {
+                showInfo1(e) {
+                    //写法1：（keyCode 13代表回车）
+                    if (e.keyCode !== 13) {
+                        return
+                    }
+                    console.log(e.target.value)
+                },
+                showInfo2() {
+                    console.log(e.target.value)
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
