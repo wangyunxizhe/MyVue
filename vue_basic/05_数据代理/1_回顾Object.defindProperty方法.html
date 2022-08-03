@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回顾Object.defindProperty方法</title>
+</head>
+
+<body>
+
+    <script>
+        let person = {
+            name: '张三',
+            sex: '男'
+        }
+
+        let number = 18
+
+        //参数1：要给哪个对象添加属性。参数2：要添加的属性名。参数3：配置项
+        Object.defineProperty(person, 'age', {
+            value: '18',
+            //2，当设置enumerable为true后，age属性可以遍历到（可以被枚举）
+            enumerable: true,
+            //控制属性值是否可以被修改，默认false
+            writable: true,
+            //控制属性是否可以被删除，默认false
+            configurable: true
+
+            //当需要读取person的age属性时，get函数(ge)就会被调用，函数的返回值就是age的值
+            // get: function () {
+            //     console.log('有人读取age属性了')
+            //     return number
+            // }
+        })
+
+        console.log(person)
+
+        //1，通过属性的遍历，发现通过defineProperty方法添加的属性是没法遍历到的（age并不能被枚举）
+        console.log(Object.keys(person))
+    </script>
+</body>
+
+</html>
