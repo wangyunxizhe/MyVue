@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气案例_监视属性</title>
+    <!-- 通过script标签引入vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!--
+        监视属性watch：
+            1，当被监视的属性值发生变化时，回调函数（handler）将被自动调用
+    -->
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <button @click="change">切换天气</button>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                isHot: true
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉爽'
+                }
+            },
+            methods: {
+                change() {
+                    this.isHot = !this.isHot
+                }
+            },
+            //监视属性的配置项（写法1）
+            watch: {
+                isHot: {
+                    //immediate默认为false，改为true后，初始化时会自动执行一次handler函数
+                    immediate: true,
+                    //handler函数是vue监视属性的自带函数
+                    handler(newVal, oldVal) {
+                        console.log('我知道isHot被修改了~~~我还知道旧值是：' + oldVal + ' 新值是：' + newVal)
+                    }
+                }
+            }
+        })
+
+        //监视属性（写法2）
+        /* vm.$watch('isHot', {
+            immediate: true,
+            handler(newVal, oldVal) {
+                console.log('我知道isHot被修改了~~~我还知道旧值是：' + oldVal + ' 新值是：' + newVal)
+            }
+        }) */
+    </script>
+</body>
+
+</html>

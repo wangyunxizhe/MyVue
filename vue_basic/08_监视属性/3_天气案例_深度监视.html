@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气案例_深度监视</title>
+    <!-- 通过script标签引入vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <button @click="change">切换天气</button>
+        <hr>
+        <h3>a的值是:{{numbers.a}}</h3>
+        <button @click="numbers.a++">点击a+1</button><br>
+        <h3>b的值是:{{numbers.b}}</h3>
+        <button @click="numbers.b++">点击b+1</button><br>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                isHot: true,
+                numbers: {
+                    a: 1,
+                    b: 1
+                }
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉爽'
+                }
+            },
+            methods: {
+                change() {
+                    this.isHot = !this.isHot
+                }
+            },
+            //监视属性的配置项
+            watch: {
+                isHot: {
+                    //handler函数是vue监视属性的自带函数
+                    handler(newVal, oldVal) {
+                        console.log('我知道isHot被修改了~~~我还知道旧值是：' + oldVal + ' 新值是：' + newVal)
+                    }
+                },
+                //因为习惯了key不加引号，但多级key时，不加引号的写法是会编译报错的
+                'numbers.a': {
+                    handler() {
+                        console.log('我知道a被修改了~~~')
+                    }
+                },
+                //监视numbers对象
+                numbers: {
+                    //开启深度监视，默认false，开启后numbers对象中任意的属性值发生变化，都会执行handler函数
+                    deep: true,
+                    handler(newVal, oldVal) {
+                        console.log('我知道numbers被修改了~~~', newVal, oldVal)
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
