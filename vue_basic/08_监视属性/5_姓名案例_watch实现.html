@@ -33,6 +33,7 @@
                 //总结：该案例场景中，计算属性在写法上比监视属性更方便。
                 //但是，当函数内部需要执行异步任务时（如setTimeout）只能由watch来完成
                 //所以，computed能完成的，watch也可以完成。watch能完成的，computed不一定能完成
+                //实际工作中computed和watch都能实现功能时，优先使用computed毕竟写法简洁
             },
             watch: {
                 xing(newVal) {

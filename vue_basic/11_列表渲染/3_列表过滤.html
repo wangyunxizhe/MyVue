@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表过滤</title>
+    <!-- 通过script标签引入vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!--
+        实际工作中computed和watch都能实现功能时，优先使用computed毕竟写法简洁
+    -->
+    <div id="root">
+        <h2>人员列表</h2>
+        <input type="text" placeholder="请输入姓名" v-model="keyword">
+        <ul>
+            <li v-for="(p,index) in filPersons" :key="p.id">
+                {{p.name}}-{{p.age}}-{{p.sex}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        //使用watch的方式实现
+        /* new Vue({
+            el: '#root',
+            data: {
+                persons: [
+                    { id: '001', name: '马冬梅', age: 18, sex: '女' },
+                    { id: '002', name: '周冬雨', age: 19, sex: '女' },
+                    { id: '003', name: '周杰伦', age: 20, sex: '男' },
+                    { id: '004', name: '郭艾伦', age: 21, sex: '男' }
+                ],
+                keyword: "",
+                filPersons: []
+            },
+            watch: {
+                keyword: {
+                    //immediate默认为false，改为true后，初始化时会自动执行一次handler函数
+                    immediate: true,
+                    handler(val) {
+                        console.log('keyword被改成 ' + val + ' 啦')
+                        //将过滤后的新数组赋值给filPersons，从而达到列表过滤的效果
+                        this.filPersons = this.persons.filter((p) => {
+                            return p.name.indexOf(val) !== -1
+                        })
+                    }
+                }
+            }
+        }) */
+
+        //使用computed的方式实现
+        new Vue({
+            el: '#root',
+            data: {
+                persons: [
+                    { id: '001', name: '马冬梅', age: 18, sex: '女' },
+                    { id: '002', name: '周冬雨', age: 19, sex: '女' },
+                    { id: '003', name: '周杰伦', age: 20, sex: '男' },
+                    { id: '004', name: '郭艾伦', age: 21, sex: '男' }
+                ],
+                keyword: ""
+            },
+            computed: {
+                filPersons() {
+                    return this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyword) !== -1
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

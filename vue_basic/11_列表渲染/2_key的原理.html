@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>key的原理</title>
+    <!-- 通过script标签引入vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>人员列表</h2>
+        <button @click.once="add">添加一个人</button>
+        <ul>
+            <!-- 
+                观察步骤：
+                    1，将:key的值写为index，在页面维护好现有的input框里的值，再点击button
+                    2，将:key的值写为p.id，在页面维护好现有的input框里的值，再点击button
+                    对比1，2两次操作，可以看出1点击button后input框里的值发生错乱而2不会，
+                    这是因为vue的内部对key做了diff算法处理，另外如果在v-for中没有显式的写key，vue会自动将key设为index
+             -->
+            <li v-for="(p,index) in persons" :key="index">
+                {{p.name}}-{{p.age}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                persons: [
+                    { id: '001', name: '张三', age: 18 },
+                    { id: '002', name: '李四', age: 19 },
+                    { id: '003', name: '王二', age: 20 }
+                ]
+            },
+            methods: {
+                add() {
+                    const p = { id: '004', name: '老刘', age: 21 }
+                    //unshift函数在数组左侧插入元素
+                    this.persons.unshift(p)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
