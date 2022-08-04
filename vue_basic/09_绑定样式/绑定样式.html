@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定样式</title>
+    <!-- 通过script标签引入vue -->
+    <script src="../js/vue.js"></script>
+    <style>
+        .basic {
+            width: 400px;
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        .normal {
+            background-color: blue;
+        }
+
+        .happy {
+            background-color: pink;
+        }
+
+        .sad {
+            background-color: green;
+        }
+
+        .c1 {
+            border-radius: 10px;
+            border: 5px solid darkmagenta;
+        }
+
+        .c2 {
+            text-shadow: 5px 5px 5px slateblue;
+        }
+
+        .c3 {
+            font-size: 200%;
+            color: gold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 对于动态变化的class，可以使用数据绑定的方式，vue最终会汇总成一个class -->
+        <!-- 绑定class：字符串写法。适用于样式类名不确定，需要动态指定 -->
+        <div class="basic" :class="x_class" @click="changeMood">{{name}}</div><br><br>
+
+        <!-- 绑定class：数组写法。适用于要绑定的个数、名字都不确定 -->
+        <div class="basic" :class="x_arr">{{name}}</div><br><br>
+
+        <!-- 绑定class：对象写法。适用于要绑定的class个数、名字可以确定，但需要分情况动态使用某个class -->
+        <div class="basic" :class="x_obj">{{name}}</div><br><br>
+
+        <!-- 也可以绑定style（对象写法） -->
+        <div class="basic" :style="style_obj1">{{name}}</div><br><br>
+        <!-- 绑定多个style（数组写法） -->
+        <div class="basic" :style="[style_obj1,style_obj2]">{{name}}</div><br><br>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                name: 'wyuan',
+                x_class: 'normal',
+                x_arr: ['c1', 'c2', 'c3'],
+                x_obj: {
+                    c1: false,
+                    c2: false
+                },
+                style_obj1: {
+                    //注意：在交给vue托管后，不能再写原本的 font-size 而要改为驼峰式写法，更不能写本来style中没有的属性
+                    fontSize: '40px',
+                    color: 'red'
+                },
+                style_obj2: {
+                    backgroundColor: "pink"
+                }
+            },
+            methods: {
+                changeMood() {
+                    const mood = ['happy', 'sad', 'normal']
+                    const index = Math.floor(Math.random() * 3)
+                    this.x_class = mood[index]
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
