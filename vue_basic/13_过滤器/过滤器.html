@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器</title>
+    <!-- 通过script标签引入vue -->
+    <script src="../js/vue.js"></script>
+    <script src="../js/dayjs.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>显式格式化后的时间</h2>
+        <!-- 使用“计算属性”方式实现 -->
+        <h3>现在是：{{fmtTime}}</h3>
+        <!-- methods实现 -->
+        <h3>现在是：{{getFmtTime()}}</h3>
+        <!-- 过滤器实现 -->
+        <h3>现在是：{{time | timeFormater}}</h3>
+        <!-- 过滤器传参：第一个参数永远是管道符左侧的time（无论是否像上面一样没写括号，都会将time传入函数）自定义的参数YYYY-MM-DD排在time后面 -->
+        <h3>现在是：{{time | timeFormater('YYYY-MM-DD')}}</h3>
+        <!-- 过滤器连写：mySlice这里入参就是timeFormater的返回值 -->
+        <h3>现在是：{{time | timeFormater('YYYY-MM-DD') | mySlice}}</h3>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                time: 1621561377603 //时间戳
+            },
+            computed: {
+                fmtTime() {
+                    return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss')
+                }
+            },
+            methods: {
+                getFmtTime() {
+                    return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss')
+                }
+            },
+            //过滤器：本质就是函数
+            filters: {
+                //给参数str赋予默认值
+                timeFormater(value, str = 'YYYY年MM月DD日 HH:mm:ss') {
+                    return dayjs(value).format(str)
+                },
+                mySlice(value) {
+                    return value.slice(0, 4)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
