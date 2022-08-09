@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-text指令</title>
+    <!-- 通过script标签引入vue -->
+    <script src="../js/vue.js"></script>
+    <script src="../js/dayjs.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div>{{name}}</div>
+        <!-- 上下两种写法达到的效果是一样的，但上面的写法更灵活（推荐）下面的写法会替换掉div中的所有内容 -->
+        <div v-text="name"></div>
+        <!-- 不会解析成H5标签 -->
+        <div v-text="str"></div>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                name: "wyuan",
+                str: "<h3>abc</h3>"
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-cloak指令</title>
+    <!-- 通过script标签引入vue（背景：超过5s都未能引用到vue.js，解决方案：v-cloak标签） -->
+    <script src="../js/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <!-- v-cloak特性：在vue介入后，该属性会消失。该属性没有value -->
+        <!-- 解决方案：在vue介入前v-cloak的style会存在，从而达到不在页面显示的效果。当vue一介入，v-cloak自动被移除，元素便能正常显示 -->
+        <h2 v-cloak>{{name}}</h2>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                name: "wyuan",
+                str: "<h3>abc</h3>"
+            }
+        })
+    </script>
+</body>
+
+</html>
