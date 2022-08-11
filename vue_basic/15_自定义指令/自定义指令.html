@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        需求1：定义v-big指令，和v-text功能类似，但会把绑定的数值放大10倍
+        需求2：定义v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点
+     -->
+    <div id="root">
+        <h2>{{name}}</h2>
+        <h2>当前的n值是:<span v-text="n"></span></h2>
+        <h2>放大10倍后n的值是:<span v-big="n"></span></h2>
+        <button @click="n++">点击n+1</button>
+        <hr>
+        <input type="text" v-fbind:value="n">
+        <hr>
+        <!-- 如果自定义指令需要由多个单词组成，用连字符，因为浏览器不支持驼峰 -->
+        <input type="text" v-my-demo="n">
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+        //2，自定义指令：写在这里是全局指令
+        //2.1 写法1（完整）
+        /* Vue.directive('fbind', {
+            bind(el, binding) {
+                console.log('~~~bind~~~')
+                el.value = binding.value
+            },
+            inserted(el, binding) {
+                console.log('~~~inserted~~~')
+                el.focus()
+            },
+            update(el, binding) {
+                console.log('~~~update~~~')
+                el.value = binding.value
+            }
+        }) */
+
+        //2.2 写法2（函数式）
+        /* Vue.directive('big', function (el, binding) {
+            console.log('~~~big~~~')
+        }) */
+
+        new Vue({
+            el: '#root',
+            data: {
+                name: "wyuan",
+                n: 1
+            },
+            // 1，自定义指令：写在这里是局部指令，只对#root vm实例有效（注意：如果在自定义指令中写“this”，与之前的会有区别，这里的this不再是vm，而是window）
+            directives: {
+                // Q：何时会被调用？
+                // A：1，指令与元素成功绑定（开始渲染加载时）2，指令所在模板（#root）被重新解析时（即使是“name”被重新解析，big也会被调用）
+                big(el, binding) {
+                    // console.log('big', this)
+
+                    //big自定义指令采用的是“简写”写法
+                    //参数1：说明el参数是span这个“真实”的DOM元素
+                    console.log(el instanceof HTMLElement)
+                    //参数2：span和v-big之前的关联关系
+                    console.log(binding)
+
+                    console.log(binding.value)
+
+                    el.innerText = binding.value * 10
+                },
+                fbind: {
+                    //fbind自定义指令采用的是“完整”写法（因为“简写”在此需求中无法达到要求）
+
+                    //以下函数相当于@Override，并且都可以收到“页面元素”，“元素与自定义指令关联关系”这两个入参
+                    bind(el, binding) {
+                        //调用时机：指令与元素成功绑定（开始渲染加载时）
+                        console.log('~~~bind~~~')
+                        el.value = binding.value
+                    },
+                    inserted(el, binding) {
+                        //调用时机：指令所在元素被插入页面时
+                        console.log('~~~inserted~~~')
+                        el.focus()
+                    },
+                    update(el, binding) {
+                        //调用时机：指令所在的模板被重新解析时
+                        console.log('~~~update~~~')
+                        el.value = binding.value
+                    }
+                },
+                // 多单词的自定义指令，引号就不能省略了，否则编译报错
+                'my-demo'(el, binding) {
+                    console.log('~~~my-demo~~~')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
