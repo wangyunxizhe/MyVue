@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本使用</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>{{msg}}</h1>
+        <hello></hello>
+        <hr>
+        <!-- 第三步：编写组件标签（单位） -->
+        <ent></ent>
+        <hr>
+        <!-- 第三步：编写组件标签（员工） -->
+        <emp></emp>
+        <!-- 相当于new了第二个员工，第一个员工中任何属性值的变化都不会影响第二个员工 -->
+        <emp></emp>
+    </div>
+
+    <div id="root2">
+        <hello></hello>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        //第一步：创建ent组件（组件写法）
+        const ent = Vue.extend({
+            //1，组件中是不支持“el”配置项的，因为最终所有的组件都要被一个vm管理，由vm决定服务于哪个容器
+            // el: '#root',
+            //模板配置
+            template: `
+                <div>
+                    <h2>单位名称：{{entName}}</h2>
+                    <h2>单位地址：{{entAddr}}</h2>
+                    <button @click="showName">点击提示单位名</button>
+                </div>
+            `,
+            //2，在组件中data必须已“函数式”的形式编写，不支持“对象式”的写法
+            data() {
+                return {
+                    entName: "研究院",
+                    entAddr: "南京鼓楼"
+                }
+            },
+            methods: {
+                showName() {
+                    alert(this.entName)
+                }
+            },
+        })
+
+        //第一步：创建emp组件
+        const emp = Vue.extend({
+            template: `
+                <div>
+                    <h2>员工姓名：{{empName}}</h2>
+                    <h2>员工年龄：{{empAge}}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    empName: "wyuan",
+                    empAge: 18
+                }
+            }
+        })
+
+        //使用“全局注册”，注册hello组件
+        const hello = Vue.extend({
+            template: `
+                <div>
+                    <h2>你好啊！{{name}}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    name: "tom"
+                }
+            }
+        })
+        //参数1：要注册的组件名称。参数2：要注册的组件对象
+        Vue.component('hello', hello)
+
+        //实例化vm，并注册以上的组件
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                msg: 'hi'
+            },
+            //组件配置项，第二步：注册组件（局部注册）
+            components: {
+                ent: ent,
+                emp: emp
+            }
+        })
+
+        new Vue({
+            el: '#root2'
+        })
+
+    </script>
+</body>
+
+</html>

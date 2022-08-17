@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注意点</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>{{msg}}</h1>
+        <my-ent></my-ent>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        const ent = Vue.extend({
+            template: `
+                <div>
+                    <h2>单位名称：{{entName}}</h2>
+                    <h2>单位地址：{{entAddr}}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    entName: "研究院",
+                    entAddr: "南京鼓楼"
+                }
+            }
+        })
+
+        new Vue({
+            el: '#root',
+            data: {
+                msg: '欢迎'
+            },
+            components: {
+                //注意点1：如果组件名需要由两个单词组成，如下写：
+                'my-ent': ent
+            }
+        })
+
+    </script>
+</body>
+
+</html>
