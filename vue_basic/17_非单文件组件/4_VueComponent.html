@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueComponent</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!--
+        关于VueComponent:
+        1，ent组件本质是一个名为VueComponent的构造函数，且不是程序员定义的，是Vue.extend生成的
+        2，用到</ent>或<ent></ent>时，Vue解析时会帮我们创建ent组件的实例对象，也就是帮我们执行new VueComponent(options)
+        3，特别注意：每次调用Vue.extend，返回的都是一个全新的VueComponent！！！
+        4，组件中的this，指向是VueComponent实例，而非vm
+    -->
+    <div id="root">
+        <ent></ent>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        //ent组件
+        const ent = Vue.extend({
+            name: "ENT",
+            template: `
+                <div>
+                    <h2>单位名称：{{entName}}</h2>
+                    <h2>单位地址：{{entAddr}}</h2>
+                    <button @click="showName">点击</button>
+                </div>
+            `,
+            //在组件中data必须已“函数式”的形式编写，不支持“对象式”的写法
+            data() {
+                return {
+                    entName: "研究院",
+                    entAddr: "南京鼓楼"
+                }
+            },
+            methods: {
+                showName() {
+                    //这里的this指向是VueComponent实例，而非vm
+                    alert(this.entName)
+                }
+            },
+        })
+
+        new Vue({
+            el: '#root',
+            //注册组件（局部）
+            components: {
+                ent: ent
+            }
+        })
+
+    </script>
+</body>
+
+</html>
