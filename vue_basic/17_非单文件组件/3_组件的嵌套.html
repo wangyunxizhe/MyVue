@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件的嵌套</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <app></app>
+    </div>
+
+    <script>
+        //阻止 vue 在启动时生成生产提示
+        Vue.config.productionTip = false
+
+        //emp组件
+        const emp = Vue.extend({
+            name: 'EMP',
+            template: `
+                <div>
+                    <h2>员工姓名：{{empName}}</h2>
+                    <h2>员工年龄：{{empAge}}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    empName: "wyuan",
+                    empAge: 18
+                }
+            }
+        })
+
+        //ent组件
+        const ent = Vue.extend({
+            template: `
+                <div>
+                    <h2>单位名称：{{entName}}</h2>
+                    <h2>单位地址：{{entAddr}}</h2>
+                    <emp></emp>
+                </div>
+            `,
+            //在组件中data必须已“函数式”的形式编写，不支持“对象式”的写法
+            data() {
+                return {
+                    entName: "研究院",
+                    entAddr: "南京鼓楼"
+                }
+            },
+            //组件嵌套：注册子组件。注意：注册给谁，就在谁的结构里写这个组件
+            components: {
+                emp: emp
+            }
+        })
+
+        //hello组件
+        const hello = Vue.extend({
+            template: `<h1>{{msg}}</h1>`,
+            data() {
+                return {
+                    msg: "welcome!!!"
+                }
+            }
+        })
+
+        //app组件（让它拥有所有的组件）
+        const app = Vue.extend({
+            template: `
+                <div>
+                    <hello></hello>
+                    <ent></ent>
+                </div>
+            `,
+            components: {
+                ent: ent,
+                hello: hello
+            }
+        })
+
+        new Vue({
+            el: '#root',
+            //注册组件（局部）
+            components: {
+                app: app
+            }
+        })
+
+    </script>
+</body>
+
+</html>
