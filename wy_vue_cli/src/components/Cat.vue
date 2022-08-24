@@ -1,11 +1,7 @@
-<!-- 一个标准的组件 -->
-
 <template>
-<!-- 组件的结构 -->
-<div class="demo">
-    <h2>单位名称：{{ name }}</h2>
-    <h2>单位地址：{{ addr }}</h2>
-    <button @click="showName">点击提示单位名</button>
+<div>
+    <h2 @click="showName">名字：{{ name }}</h2>
+    <h2>性别：{{ sex }}</h2>
 </div>
 </template>
 
@@ -15,14 +11,12 @@ import {
     hunhe
 } from "../mixin";
 
-//组件交互相关的代码
 export default {
-    //最好跟文件同名
-    name: 'Ent',
+    name: "Cat",
     data() {
         return {
-            name: "研究院",
-            addr: "南京鼓楼"
+            name: '大T子',
+            sex: '母'
         }
     },
     methods: {
@@ -32,13 +26,7 @@ export default {
         } */
     },
     //使用mixins属性，将showName方法引入组件，不必在3个组件中重复编写了
+    //tips：如果mixin中出现了与组件中同名的方法、属性，以组件中的为准
     mixins: [hunhe]
 }
 </script>
-
-<style>
-/*组件的样式*/
-.demo {
-    background-color: orange;
-}
-</style>

@@ -13,6 +13,11 @@
 </template>
 
 <script>
+//引入一个“mixin”
+import {
+    hunhe
+} from "../mixin";
+
 //组件交互相关的代码
 export default {
     //最好跟文件同名
@@ -26,9 +31,10 @@ export default {
         }
     },
     methods: {
-        showName() {
+        //当Emp,Ent,Cat组件中都有showName函数时，可使用“mixin”特性
+        /* showName() {
             alert(this.name)
-        },
+        }, */
         updateAge() {
             this.myAge++
         }
@@ -58,6 +64,8 @@ export default {
             type: Number,
             default: 99
         }
-    }
+    },
+    //使用mixins属性，将showName方法引入组件，不必在3个组件中重复编写了
+    mixins: [hunhe]
 }
 </script>

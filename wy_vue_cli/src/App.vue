@@ -11,6 +11,8 @@
     <hr>
     <!-- :age解释：因为age需要作为数字型处理，如果不用v-bind让vue来处理的话，原生解析方式都会将值当作字符串处理 -->
     <Emp name="李四" :age="16" sex="女" />
+    <hr>
+    <Cat />
 </div>
 </template>
 
@@ -18,6 +20,7 @@
 // 引入组件
 import Ent from './components/Ent.vue'
 import Emp from './components/Emp.vue'
+import Cat from './components/Cat.vue'
 
 //vc实例对象
 export default {
@@ -29,7 +32,8 @@ export default {
     },
     components: {
         Ent: Ent,
-        Emp: Emp
+        Emp: Emp,
+        Cat: Cat
     },
     methods: {
         showDOM() {
