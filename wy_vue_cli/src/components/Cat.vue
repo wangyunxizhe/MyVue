@@ -2,6 +2,7 @@
 <div>
     <h2 @click="showName">名字：{{ name }}</h2>
     <h2>性别：{{ sex }}</h2>
+    <button @click="test">点击测试插件中的hello方法</button>
 </div>
 </template>
 
@@ -24,6 +25,10 @@ export default {
         /* showName() {
             alert(this.name)
         } */
+        //调用插件中的hello方法
+        test() {
+            this.hello()
+        }
     },
     //使用mixins属性，将showName方法引入组件，不必在3个组件中重复编写了
     //tips：如果mixin中出现了与组件中同名的方法、属性，以组件中的为准

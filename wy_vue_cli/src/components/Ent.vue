@@ -6,6 +6,7 @@
     <h2>单位名称：{{ name }}</h2>
     <h2>单位地址：{{ addr }}</h2>
     <button @click="showName">点击提示单位名</button>
+    <button @click="test">点击测试插件中的hello方法</button>
 </div>
 </template>
 
@@ -30,6 +31,10 @@ export default {
         /* showName() {
             alert(this.name)
         } */
+        //调用插件中的hello方法
+        test() {
+            this.hello()
+        }
     },
     //使用mixins属性，将showName方法引入组件，不必在3个组件中重复编写了
     mixins: [hunhe]

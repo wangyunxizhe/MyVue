@@ -17,10 +17,14 @@ import App from './App.vue'
     2，因为vue.runtime.xxx.js没有模板解析器，所以不能使用 template 配置项，
     需要使用render函数接收到的createElement函数去指定具体内容
  */
-
+//引入插件
+import plugins from './plugins'
 
 //关闭Vue的生产提示
 Vue.config.productionTip = false
+
+//使用插件
+Vue.use(plugins)
 
 /* new Vue({
   //下面这段代码的作用：将App组件放入容器中
