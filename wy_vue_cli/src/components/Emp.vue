@@ -3,9 +3,12 @@
 <template>
 <!-- 组件的结构 -->
 <div>
+    <h1>{{msg}}</h1>
     <h2>姓名：{{ name }}</h2>
-    <h2>年龄：{{ age }}</h2>
+    <h2>性别：{{ sex }}</h2>
+    <h2>年龄：{{ myAge }}</h2>
     <button @click="showName">点击提示姓名</button>
+    <button @click="updateAge">点击修改年龄</button>
 </div>
 </template>
 
@@ -16,13 +19,44 @@ export default {
     name: 'Emp',
     data() {
         return {
-            name: "wyuan",
-            age: 18
+            msg: "我是一个帅气的学生",
+            // tips：如果data中的属性和props中的属性重名了，props中的优先级更高（可利用这个特性，但不要这样写）
+            //因为props的优先级更高，所以data中的myAge在读age时，age属性就已经存在了，可以顺利读到值
+            myAge: this.age
         }
     },
     methods: {
         showName() {
             alert(this.name)
+        },
+        updateAge() {
+            this.myAge++
+        }
+    },
+    //props属性
+    //简单接收写法（不限制属性的类型）
+    // props: ['name', 'sex', 'age']
+
+    //写法2：接收的同时对数据进行类型限制
+    /* props: {
+        name: String,
+        sex: String,
+        age: Number
+    } */
+
+    //写法3：接收的同时对数据进行类型限制 + 默认值的指定 + 必要性的限制
+    props: {
+        name: {
+            type: String,
+            required: true
+        },
+        sex: {
+            type: String,
+            required: true
+        },
+        age: {
+            type: Number,
+            default: 99
         }
     }
 }
