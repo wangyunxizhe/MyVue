@@ -41,8 +41,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /*组件的样式*/
+/*
+注意：3个组件中的样式最终会在页面上汇总到一起。
+思考：如果class类名冲突了会怎样？
+结论：如果类名冲突，则看App.vue中对组件的注册顺序，以后注册的样式class类为准
+
+推荐解决方案：scoped样式，一般来说，在实际工作中scoped不会写在App.vue中，因为App.vue都需要应用在全局
+*/
 .demo {
     background-color: orange;
 }

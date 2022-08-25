@@ -2,7 +2,7 @@
 
 <template>
 <!-- 组件的结构 -->
-<div>
+<div class="demo">
     <h1>{{msg}}</h1>
     <h2>姓名：{{ name }}</h2>
     <h2>性别：{{ sex }}</h2>
@@ -69,3 +69,13 @@ export default {
     mixins: [hunhe]
 }
 </script>
+
+<style scoped>
+.demo {
+    background-color: blue;
+}
+
+.test {
+    background-color: red;
+}
+</style>
