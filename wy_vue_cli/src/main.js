@@ -19,6 +19,8 @@ import App from './App.vue'
  */
 //引入插件
 import plugins from './plugins'
+//引入TodoList章节的组件
+import AppTodoList from './AppTodoList.vue'
 
 //关闭Vue的生产提示
 Vue.config.productionTip = false
@@ -35,10 +37,16 @@ Vue.use(plugins)
 //在引入“完整版”的vue后，就可以用一贯的写法了
 new Vue({
   el: "#app",
-    template: `<App></App>`,
-    components: {
-        App: App
-    }
+  template: `
+    <div>
+      <App></App>
+      <h1>TodoList章节测试</h1>
+      <AppTodoList></AppTodoList>
+    </div>
+    `,
+  components: {
+    App: App,
+    //只是为了方便练习，正常工作中main.js中只会引入App这一个组件
+    AppTodoList: AppTodoList
+  }
 })
-
-
