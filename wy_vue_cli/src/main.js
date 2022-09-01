@@ -23,6 +23,7 @@ import plugins from './plugins'
 import AppTodoList from './AppTodoList.vue'
 import AppTodoListStorage from './AppTodoListStorage.vue'
 import AppTodoListDiy from './AppTodoListDiy.vue'
+import AppTodoListBus from './AppTodoListBus.vue'
 
 //关闭Vue的生产提示
 Vue.config.productionTip = false
@@ -48,6 +49,8 @@ new Vue({
       <AppTodoListStorage></AppTodoListStorage>
       <h1>======TodoList章节测试自定义事件方案=====</h1>
       <AppTodoListDiy></AppTodoListDiy>
+      <h1>======TodoList章节测试全局事件总线方案=====</h1>
+      <AppTodoListBus></AppTodoListBus>
     </div>
     `,
   components: {
@@ -55,6 +58,12 @@ new Vue({
     //只是为了方便练习，正常工作中main.js中只会引入App这一个组件
     AppTodoList: AppTodoList,
     AppTodoListStorage: AppTodoListStorage,
-    AppTodoListDiy: AppTodoListDiy
+    AppTodoListDiy: AppTodoListDiy,
+    AppTodoListBus: AppTodoListBus
+  },
+  //4，全局事件总线章节：安装全局事件总线
+  beforeCreate() {
+    //bus：约定俗成对全局事件总线的命名
+    Vue.prototype.$bus = this
   }
 })
