@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sessionStorage</title>
+</head>
+
+<body>
+    <!-- 
+        sessionStorage 存储的内容会随着浏览器的关闭而消失
+     -->
+    <h2>sessionStorage（使用原生写法）</h2>
+    <button onclick="saveData()">点击保存一个数据</button>
+    <button onclick="readData()">点击读取一个数据</button>
+    <button onclick="delData()">点击删除一个数据</button>
+    <button onclick="clearData()">点击清空全部数据</button>
+
+    <script>
+        let p = { name: 'wyuan', age: 18 }
+
+        function saveData() {
+            sessionStorage.setItem('msg', 'hello!!!')
+            //保存到浏览器时，666会自动解析为字符串类型
+            sessionStorage.setItem('msg2', 666)
+            sessionStorage.setItem('person', JSON.stringify(p))
+        }
+
+        function readData() {
+            console.log(sessionStorage.getItem('msg'))
+            console.log(sessionStorage.getItem('msg2'))
+
+            const rs = sessionStorage.getItem('person')
+            console.log(JSON.parse(rs))
+        }
+
+        function delData() {
+            sessionStorage.removeItem('msg2')
+        }
+
+        function clearData() {
+            sessionStorage.clear()
+        }
+    </script>
+</body>
+
+</html>

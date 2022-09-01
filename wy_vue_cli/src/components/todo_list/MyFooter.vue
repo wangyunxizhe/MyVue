@@ -4,7 +4,7 @@
         <!-- checkAll 的写法一 -->
         <input type="checkbox" :checked="isAll" @change="checkAll" />
         <!-- checkAll 的写法二（使用完整写法的计算属性实现） -->
-        <input type="checkbox" v-model="isAll" />
+        <!-- <input type="checkbox" v-model="isAll" /> -->
     </label>
     <span>
         <span>已完成{{doneTotal}}</span> / 全部{{total}}

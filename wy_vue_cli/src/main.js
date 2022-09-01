@@ -21,6 +21,7 @@ import App from './App.vue'
 import plugins from './plugins'
 //引入TodoList章节的组件
 import AppTodoList from './AppTodoList.vue'
+import AppTodoListStorage from './AppTodoListStorage.vue'
 
 //关闭Vue的生产提示
 Vue.config.productionTip = false
@@ -40,13 +41,16 @@ new Vue({
   template: `
     <div>
       <App></App>
-      <h1>TodoList章节测试</h1>
+      <h1>========TodoList章节测试========</h1>
       <AppTodoList></AppTodoList>
+      <h1>========TodoList章节测试Storage方案========</h1>
+      <AppTodoListStorage></AppTodoListStorage>
     </div>
     `,
   components: {
     App: App,
     //只是为了方便练习，正常工作中main.js中只会引入App这一个组件
-    AppTodoList: AppTodoList
+    AppTodoList: AppTodoList,
+    AppTodoListStorage: AppTodoListStorage
   }
 })
