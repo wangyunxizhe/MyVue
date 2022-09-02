@@ -84,7 +84,22 @@ export default {
             this.todos = this.todos.filter((todo) => {
                 return !todo.done
             })
+        },
+        //函数作用：编辑一个todo
+        updateTodo(id, title) {
+            this.todos.forEach((todo) => {
+                if (todo.id === id) {
+                    todo.title = title
+                }
+            })
         }
+    },
+    //为MyItem组件中的“编辑”功能服务
+    mounted() {
+        this.$bus.$on('updateTodo', this.updateTodo)
+    },
+    beforeDestroy() {
+        this.$bus.$off('updateTodo')
     }
 }
 </script>
@@ -112,6 +127,13 @@ body {
     color: #fff;
     background-color: #da4f49;
     border: 1px solid #bd362f;
+}
+
+.btn-edit {
+    color: #fff;
+    background-color: skyblue;
+    border: 1px solid rgb(82, 188, 230);
+    margin-right: 5px;
 }
 
 .btn-danger:hover {
