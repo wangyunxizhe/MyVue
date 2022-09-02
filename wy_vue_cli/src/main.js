@@ -24,6 +24,7 @@ import AppTodoList from './AppTodoList.vue'
 import AppTodoListStorage from './AppTodoListStorage.vue'
 import AppTodoListDiy from './AppTodoListDiy.vue'
 import AppTodoListBus from './AppTodoListBus.vue'
+import AppTodoListPubsub from './AppTodoListPubsub.vue'
 
 //关闭Vue的生产提示
 Vue.config.productionTip = false
@@ -51,6 +52,8 @@ new Vue({
       <AppTodoListDiy></AppTodoListDiy>
       <h1>======TodoList章节测试全局事件总线方案=====</h1>
       <AppTodoListBus></AppTodoListBus>
+      <h1>======TodoList章节测试消息订阅发布方案=====</h1>
+      <AppTodoListPubsub></AppTodoListPubsub>
     </div>
     `,
   components: {
@@ -59,7 +62,8 @@ new Vue({
     AppTodoList: AppTodoList,
     AppTodoListStorage: AppTodoListStorage,
     AppTodoListDiy: AppTodoListDiy,
-    AppTodoListBus: AppTodoListBus
+    AppTodoListBus: AppTodoListBus,
+    AppTodoListPubsub: AppTodoListPubsub
   },
   //4，全局事件总线章节：安装全局事件总线
   beforeCreate() {
