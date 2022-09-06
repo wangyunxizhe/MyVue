@@ -13,6 +13,10 @@
     <Emp name="李四" :age="16" sex="女" />
     <hr>
     <Cat />
+    <hr>
+    <Cat2 />
+    <hr>
+    <Cat3 />
 </div>
 </template>
 
@@ -21,6 +25,8 @@
 import Ent from './components/Ent.vue'
 import Emp from './components/Emp.vue'
 import Cat from './components/Cat.vue'
+import Cat2 from './components/Cat2.vue'
+import Cat3 from './components/Cat3.vue'
 
 //vc实例对象
 export default {
@@ -33,7 +39,9 @@ export default {
     components: {
         Ent: Ent,
         Emp: Emp,
-        Cat: Cat
+        Cat: Cat,
+        Cat2: Cat2,
+        Cat3: Cat3
     },
     methods: {
         showDOM() {
