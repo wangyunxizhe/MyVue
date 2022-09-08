@@ -17,8 +17,10 @@ import App from './App.vue'
     2，因为vue.runtime.xxx.js没有模板解析器，所以不能使用 template 配置项，
     需要使用render函数接收到的createElement函数去指定具体内容
  */
-//引入插件
+//引入自定义的插件
 import plugins from './plugins'
+//引入第3方的插件
+import vueResource from 'vue-resource'
 //引入TodoList章节的组件
 import AppTodoList from './AppTodoList.vue'
 import AppTodoListStorage from './AppTodoListStorage.vue'
@@ -26,12 +28,15 @@ import AppTodoListDiy from './AppTodoListDiy.vue'
 import AppTodoListBus from './AppTodoListBus.vue'
 import AppTodoListPubsub from './AppTodoListPubsub.vue'
 import AppGithubList from './AppGithubList.vue'
+import AppSlot from './AppSlot.vue'
 
 //关闭Vue的生产提示
 Vue.config.productionTip = false
 
-//使用插件
+//使用自定义的插件
 Vue.use(plugins)
+//使用第3方的插件
+Vue.use(vueResource)
 
 /* new Vue({
   //下面这段代码的作用：将App组件放入容器中
@@ -57,6 +62,8 @@ new Vue({
       <AppTodoListPubsub></AppTodoListPubsub>
       <h1>======GithubList案例章节======</h1>
       <AppGithubList></AppGithubList>
+      <h1>======插槽章节======</h1>
+      <AppSlot></AppSlot>
     </div>
     `,
   components: {
@@ -67,7 +74,8 @@ new Vue({
     AppTodoListDiy: AppTodoListDiy,
     AppTodoListBus: AppTodoListBus,
     AppTodoListPubsub: AppTodoListPubsub,
-    AppGithubList: AppGithubList
+    AppGithubList: AppGithubList,
+    AppSlot: AppSlot
   },
   //4，全局事件总线章节：安装全局事件总线
   beforeCreate() {
