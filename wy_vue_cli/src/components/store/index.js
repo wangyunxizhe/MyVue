@@ -48,7 +48,9 @@ const mutations = {
 //准备state -- 用于存储数据
 const state = {
     //当前的和（提供给vuex版使用，vue版写在了自己的组件中）
-    sum: 0
+    sum: 0,
+    ent: '研究院',
+    subject: '后端'
 }
 
 //getters配置项：用于将state中的数据进行加工
@@ -56,6 +58,9 @@ const state = {
 const getters = {
     bigSum(state) {
         return state.sum * 10
+    },
+    doubleSum() {
+        return state.sum * 2
     }
 }
 
