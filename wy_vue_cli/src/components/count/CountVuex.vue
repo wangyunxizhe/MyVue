@@ -3,6 +3,7 @@
 <template>
 <div>
     <h1>vuex版--当前求和为：{{$store.state.sum}}</h1>
+    <h1>vuex版--当前求和放大10倍后为：{{$store.getters.bigSum}}</h1>
     <!-- v-model.number  将value中的值强转成数字类型 -->
     <select v-model.number="num">
         <option value="1">1</option>
@@ -48,9 +49,6 @@ export default {
             //与 vue版 区别：定时器不放在vc中
             this.$store.dispatch('jiaWait', this.num)
         }
-    },
-    mounted() {
-
     }
 }
 </script>

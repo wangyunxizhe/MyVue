@@ -51,9 +51,19 @@ const state = {
     sum: 0
 }
 
+//getters配置项：用于将state中的数据进行加工
+//区别：actions/mutations/state这3个配置项是store中不可或缺的，而getters不是
+const getters = {
+    bigSum(state) {
+        return state.sum * 10
+    }
+}
+
 //创建并导出store
 export default new Vuex.Store({
     actions: actions,
     mutations: mutations,
-    state: state
+    state: state,
+    //将getters加入Store的配置项
+    getters: getters
 })
