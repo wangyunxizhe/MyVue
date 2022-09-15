@@ -19,8 +19,11 @@ import App from './App.vue'
  */
 //引入自定义的插件
 import plugins from './plugins'
-//引入第3方的插件
+//引入第3方的插件 vue-resource
 import vueResource from 'vue-resource'
+//引入store（vuex核心）（不用写到./components/store/index.js，会默认找./components/store下的index.js，没有会报错）
+import store from './components/store'
+
 //引入TodoList章节的组件
 import AppTodoList from './AppTodoList.vue'
 import AppTodoListStorage from './AppTodoListStorage.vue'
@@ -29,13 +32,14 @@ import AppTodoListBus from './AppTodoListBus.vue'
 import AppTodoListPubsub from './AppTodoListPubsub.vue'
 import AppGithubList from './AppGithubList.vue'
 import AppSlot from './AppSlot.vue'
+import AppCount from './AppCount.vue'
 
 //关闭Vue的生产提示
 Vue.config.productionTip = false
 
 //使用自定义的插件
 Vue.use(plugins)
-//使用第3方的插件
+//使用第3方的插件vue-resource
 Vue.use(vueResource)
 
 /* new Vue({
@@ -45,7 +49,7 @@ Vue.use(vueResource)
 }).$mount('#app') */
 
 //在引入“完整版”的vue后，就可以用一贯的写法了
-new Vue({
+const vm = new Vue({
   el: "#app",
   template: `
     <div>
@@ -64,6 +68,8 @@ new Vue({
       <AppGithubList></AppGithubList>
       <h1>======插槽章节======</h1>
       <AppSlot></AppSlot>
+      <h1>======Vuex章节======</h1>
+      <AppCount></AppCount>
     </div>
     `,
   components: {
@@ -75,11 +81,14 @@ new Vue({
     AppTodoListBus: AppTodoListBus,
     AppTodoListPubsub: AppTodoListPubsub,
     AppGithubList: AppGithubList,
-    AppSlot: AppSlot
+    AppSlot: AppSlot,
+    AppCount: AppCount
   },
-  //4，全局事件总线章节：安装全局事件总线
+  //全局事件总线章节：安装全局事件总线
   beforeCreate() {
     //bus：约定俗成对全局事件总线的命名
     Vue.prototype.$bus = this
-  }
+  },
+  //在use了vuex插件好，store属性会被vue承认，并且绑定在所有的vm和vc上
+  store: store
 })
