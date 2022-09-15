@@ -9,6 +9,7 @@
     <h1>vuex版--当前求和放大2倍后为：{{shuangBei}}</h1>
     <h1>vuex版--当前求和放大10倍后为：{{$store.getters.bigSum}}</h1>
     <h1>vuex版--在{{danWei}}，岗位{{$store.state.subject}}</h1>
+    <h3 style="color:red">数据共享--Person组件中的总人数是：{{personList.length}}</h3>
     <!-- v-model.number  将value中的值强转成数字类型 -->
     <select v-model.number="num">
         <option value="1">1</option>
@@ -72,20 +73,20 @@ export default {
 
         /* **************************************************************** */
         //写法一：自己手动写方法，方法中去调用dispatch
-        /* addOdd() {
+        addOdd() {
             //与 vue版 区别：判断逻辑不放在vc中
             this.$store.dispatch('jiaOdd', this.num)
         },
         addWait() {
             //与 vue版 区别：定时器不放在vc中
             this.$store.dispatch('jiaWait', this.num)
-        } */
+        }
 
         //写法二：使用mapActions，对象写法，也有数组写法，命名要求一样
-        ...mapActions({
+        /* ...mapActions({
             addOdd: 'jiaOdd',
             addWait: 'jiaWait'
-        })
+        }) */
     },
     computed: {
         //写法一：靠程序员自己手写“计算属性”，完成h5元素中的赋值
@@ -99,7 +100,9 @@ export default {
         //写法二（对象写法，推荐）：使用mapState实现写法一的功能
         ...mapState({
             he: 'sum',
-            danWei: 'ent'
+            danWei: 'ent',
+            //将index.js -- state -- personList加入，实现数据共享
+            personList: 'personList'
         }),
 
         //写法三（数组写法，方法二熟练后推荐）：还是使用mapState
