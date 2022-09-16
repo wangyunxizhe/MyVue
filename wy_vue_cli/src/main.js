@@ -23,6 +23,10 @@ import plugins from './plugins'
 import vueResource from 'vue-resource'
 //引入store（vuex核心）（不用写到./components/store/index.js，会默认找./components/store下的index.js，没有会报错）
 import store from './components/store'
+//引入第3方的插件 vue-router
+import vueRouter from 'vue-router'
+//引入自定义路由器
+import router from './router'
 
 //引入TodoList章节的组件
 import AppTodoList from './AppTodoList.vue'
@@ -33,6 +37,7 @@ import AppTodoListPubsub from './AppTodoListPubsub.vue'
 import AppGithubList from './AppGithubList.vue'
 import AppSlot from './AppSlot.vue'
 import AppCount from './AppCount.vue'
+import AppRouter from './AppRouter.vue'
 
 //关闭Vue的生产提示
 Vue.config.productionTip = false
@@ -41,6 +46,8 @@ Vue.config.productionTip = false
 Vue.use(plugins)
 //使用第3方的插件vue-resource
 Vue.use(vueResource)
+//使用第3方的插件vue-router
+Vue.use(vueRouter)
 
 /* new Vue({
   //下面这段代码的作用：将App组件放入容器中
@@ -70,6 +77,8 @@ const vm = new Vue({
       <AppSlot></AppSlot>
       <h1>======Vuex章节======</h1>
       <AppCount></AppCount>
+      <h1>======路由章节======</h1>
+      <AppRouter></AppRouter>
     </div>
     `,
   components: {
@@ -82,13 +91,16 @@ const vm = new Vue({
     AppTodoListPubsub: AppTodoListPubsub,
     AppGithubList: AppGithubList,
     AppSlot: AppSlot,
-    AppCount: AppCount
+    AppCount: AppCount,
+    AppRouter: AppRouter
   },
   //全局事件总线章节：安装全局事件总线
   beforeCreate() {
     //bus：约定俗成对全局事件总线的命名
     Vue.prototype.$bus = this
   },
-  //在use了vuex插件好，store属性会被vue承认，并且绑定在所有的vm和vc上
-  store: store
+  //在use了vuex插件后，store属性会被vue承认，并且绑定在所有的vm和vc上
+  store: store,
+  //在use了vue-router插件后，可以使用router配置项
+  router: router
 })
