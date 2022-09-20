@@ -11,7 +11,15 @@
                 <router-link class="list-group-item" active-class="active" to="/home/msg">Message</router-link>
             </li>
         </ul>
-        <router-view></router-view>
+        <!-- 缓存路由组件：默认在通过路由切换组件时，组件会被销毁，
+             如News中input填好了值，切换到Message组件（此时News组件会自动被销毁）再切换回News时，
+             input框中的值就没了（因为之前的News组件被销毁了）
+             配置了keep-alive标签后，将会把组件缓存下来，不会被销毁 -->
+        <!-- include:需要缓存的组件，不写缓存所有在此处渲染的组件 -->
+        <!-- include缓存多个 ==> :include="['News','A','B',...]" -->
+        <keep-alive include="News">
+            <router-view></router-view>
+        </keep-alive>
     </div>
 </div>
 </template>
