@@ -15,7 +15,7 @@
                 <a class="list-group-item" href="./home.html">Home</a> -->
 
                 <!-- 使用“路由（vue-router）” 插件后，使用router-link标签实现跳转，注意：to后面是URL -->
-                <!-- :to="{name:'eBaoTe'}" ==> “命名路由”章节，在“to”里使用index.js中路由的name取代URL（使用场景：URL特别长的情况） -->
+                <!-- :to="{name:'eBaoTe'}" ==> “命名路由”章节，在“:to”里使用index.js中路由的name取代path来实现跳转（使用场景：URL特别长的情况） -->
                 <router-link replace class="list-group-item" active-class="active" :to="{name:'eBaoTe'}">About</router-link>
                 <!-- replace属性的作用：控制页面跳转历史记录，直接影响页面的“前进”，“后退”操作 -->
                 <router-link replace class="list-group-item" active-class="active" to="/home">Home</router-link>
